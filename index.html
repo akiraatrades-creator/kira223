@@ -11,19 +11,24 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     :root{
+      --bg:#0b0b12;
+      --bg2:#0f0f18;
       --black:#000;
       --white:#fff;
       --gray1:#f5f5f7;
       --gray2:#a1a1a6;
       --gray3:#6e6e73;
-      --gray4:#1d1d1f;
+      --gray4:#2a2a35;
+      --card:#16161f;
+      --card2:#1c1c28;
+      --border:rgba(255,255,255,0.09);
       --blue:#2997ff;
       --blue2:#0071e3;
     }
-    html{scroll-behavior:smooth;background:#000;}
+    html{scroll-behavior:smooth;background:var(--bg);}
     body{
       font-family:'Inter',system-ui,-apple-system,sans-serif;
-      background:#000;
+      background:var(--bg);
       color:#f5f5f7;
       overflow-x:hidden;
       -webkit-font-smoothing:antialiased;
@@ -266,7 +271,7 @@
       gap:2px;
     }
     .card{
-      background:#111;
+      background:var(--card);
       padding:52px 40px;
       position:relative;
       overflow:hidden;
@@ -277,7 +282,7 @@
     .card:nth-child(3){border-radius:0 20px 0 0;}
     .card:nth-child(4){border-radius:0 0 0 20px;}
     .card:last-child{border-radius:0 0 20px 0;}
-    .card:hover{background:#161616;}
+    .card:hover{background:var(--card2);}
     .card-icon{
       font-size:2rem;
       margin-bottom:28px;
@@ -353,14 +358,14 @@
     }
     .step-col{
       padding:48px 32px;
-      background:#111;
+      background:var(--card);
       text-align:left;
       position:relative;
       transition:background 0.3s;
     }
     .step-col:first-child{border-radius:16px 0 0 16px;}
     .step-col:last-child{border-radius:0 16px 16px 0;}
-    .step-col:hover{background:#161616;}
+    .step-col:hover{background:var(--card2);}
     .step-col-num{
       font-size:0.7rem;font-weight:700;
       letter-spacing:0.1em;color:var(--blue);
@@ -404,13 +409,13 @@
     .testi-card{
       padding:40px;
       border-radius:20px;
-      background:#111;
+      background:var(--card);
       border:1px solid rgba(255,255,255,0.06);
       transition:all 0.3s;
       display:flex;flex-direction:column;
     }
     .testi-card:hover{
-      background:#161616;
+      background:var(--card2);
       border-color:rgba(255,255,255,0.12);
       transform:translateY(-4px);
     }
@@ -450,7 +455,7 @@
     }
     .metric-item{
       padding:60px 40px;
-      background:#000;
+      background:var(--bg);
       transition:background 0.3s;
     }
     .metric-item:hover{background:#0a0a0a;}
@@ -581,190 +586,296 @@
 
     /* ── IPAD SECTION ── */
     .ipad-section{
-      padding:140px 24px;
+      padding:140px 24px 180px;
       text-align:center;
       position:relative;
-      overflow:hidden;
+      overflow:visible;
     }
-    .ipad-section-text{margin-bottom:80px;}
+    .ipad-section-text{margin-bottom:90px;}
     .ipad-section-text h2{
       font-size:clamp(2.5rem,6vw,5rem);
-      font-weight:700;
-      letter-spacing:-0.03em;
-      line-height:1.05;
-      margin-bottom:20px;
+      font-weight:700;letter-spacing:-0.03em;line-height:1.05;margin-bottom:20px;
     }
     .ipad-section-text p{
-      font-size:1.05rem;
-      color:var(--gray2);
-      max-width:500px;
-      margin:0 auto;
-      line-height:1.65;
+      font-size:1.05rem;color:var(--gray2);max-width:500px;margin:0 auto;line-height:1.65;
     }
 
-    /* iPad frame */
+    /* ── APPLE IPAD PRO ── */
     .ipad-scene{
-      perspective:1400px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
+      perspective:1800px;
+      display:flex;justify-content:center;align-items:center;
     }
     .ipad-wrapper{
-      animation:ipadFloat 6s ease-in-out infinite;
+      animation:ipadFloat 7s ease-in-out infinite;
       transform-style:preserve-3d;
-    }
-    @keyframes ipadFloat{
-      0%,100%{transform:translateY(0) rotateX(2deg) rotateY(-8deg);}
-      50%    {transform:translateY(-24px) rotateX(-2deg) rotateY(8deg);}
-    }
-    .ipad-frame{
-      width:540px;
-      height:720px;
-      background:linear-gradient(145deg,#2a2a2e,#1a1a1e,#0d0d10);
-      border-radius:36px;
-      padding:14px;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.08),
-        0 40px 120px rgba(0,0,0,0.8),
-        0 0 80px rgba(41,151,255,0.08),
-        inset 0 1px 0 rgba(255,255,255,0.12);
       position:relative;
     }
-    .ipad-camera{
-      position:absolute;
-      top:50%;left:-5px;
-      transform:translateY(-50%);
-      width:4px;height:60px;
-      background:linear-gradient(to bottom,#222,#333,#222);
-      border-radius:2px;
+    @keyframes ipadFloat{
+      0%,100%{transform:translateY(0px) rotateX(4deg) rotateY(-10deg);}
+      50%    {transform:translateY(-28px) rotateX(-2deg) rotateY(6deg);}
     }
-    .ipad-btn{
-      position:absolute;
-      bottom:20px;right:-5px;
-      width:4px;height:36px;
-      background:linear-gradient(to bottom,#222,#333,#222);
-      border-radius:2px;
+
+    /* Outer aluminum shell */
+    .ipad-shell{
+      position:relative;
+      width:480px;
+      height:650px;
+      border-radius:38px;
+      background:linear-gradient(160deg,
+        #b0b5bc 0%,
+        #8c9199 12%,
+        #6e7580 25%,
+        #7a8088 40%,
+        #909499 55%,
+        #828890 70%,
+        #6a7078 85%,
+        #767c84 100%
+      );
+      box-shadow:
+        /* outer rim */
+        0 0 0 1px rgba(255,255,255,0.25),
+        /* depth */
+        0 60px 140px rgba(0,0,0,0.75),
+        0 20px 60px rgba(0,0,0,0.5),
+        /* blue ambient */
+        0 0 100px rgba(41,151,255,0.07),
+        /* top highlight */
+        inset 0 1px 0 rgba(255,255,255,0.5),
+        inset 0 -1px 0 rgba(0,0,0,0.3),
+        inset 1px 0 0 rgba(255,255,255,0.15),
+        inset -1px 0 0 rgba(0,0,0,0.2);
+      padding:10px 10px;
     }
+
+    /* Brushed metal texture overlay */
+    .ipad-shell::before{
+      content:'';
+      position:absolute;inset:0;
+      border-radius:38px;
+      background:repeating-linear-gradient(
+        92deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.03) 2px,
+        rgba(255,255,255,0.03) 3px
+      );
+      pointer-events:none;
+    }
+
+    /* Side shine */
+    .ipad-shell::after{
+      content:'';
+      position:absolute;inset:0;
+      border-radius:38px;
+      background:linear-gradient(105deg,
+        rgba(255,255,255,0.18) 0%,
+        rgba(255,255,255,0.06) 20%,
+        transparent 50%,
+        rgba(0,0,0,0.1) 80%,
+        rgba(0,0,0,0.2) 100%
+      );
+      pointer-events:none;
+    }
+
+    /* Front camera — top center, tiny dot */
+    .ipad-front-cam{
+      position:absolute;
+      top:18px;left:50%;transform:translateX(-50%);
+      width:8px;height:8px;
+      border-radius:50%;
+      background:radial-gradient(circle at 35% 35%,#3a3f46,#1a1e24);
+      box-shadow:0 0 0 1px rgba(255,255,255,0.08),inset 0 1px 2px rgba(0,0,0,0.8);
+      z-index:5;
+    }
+    .ipad-front-cam::after{
+      content:'';
+      position:absolute;
+      top:2px;left:2px;
+      width:3px;height:3px;
+      border-radius:50%;
+      background:rgba(41,151,255,0.5);
+      box-shadow:0 0 4px rgba(41,151,255,0.8);
+    }
+
+    /* Power button — top right side */
+    .ipad-power{
+      position:absolute;
+      top:80px;right:-3px;
+      width:3px;height:42px;
+      border-radius:0 2px 2px 0;
+      background:linear-gradient(to bottom,
+        #7a8088 0%,#9aa0a8 30%,#6e7580 60%,#7a8088 100%
+      );
+      box-shadow:1px 0 2px rgba(0,0,0,0.4);
+    }
+
+    /* Volume buttons — left side */
+    .ipad-vol{
+      position:absolute;
+      top:100px;left:-3px;
+      display:flex;flex-direction:column;gap:10px;
+    }
+    .ipad-vol-btn{
+      width:3px;height:44px;
+      border-radius:2px 0 0 2px;
+      background:linear-gradient(to bottom,
+        #7a8088 0%,#9aa0a8 30%,#6e7580 60%,#7a8088 100%
+      );
+      box-shadow:-1px 0 2px rgba(0,0,0,0.4);
+    }
+
+    /* Apple Pencil — right side */
+    .ipad-pencil{
+      position:absolute;
+      right:-20px;top:50%;transform:translateY(-50%);
+      width:14px;height:260px;
+      border-radius:7px;
+      background:linear-gradient(to right,
+        #b8bcc4 0%,#dde0e6 30%,#ffffff 50%,#d0d3da 70%,#a0a4ac 100%
+      );
+      box-shadow:
+        2px 0 8px rgba(0,0,0,0.3),
+        inset -1px 0 2px rgba(0,0,0,0.1),
+        inset 1px 0 2px rgba(255,255,255,0.6);
+    }
+    .ipad-pencil::before{
+      content:'';
+      position:absolute;
+      bottom:0;left:50%;transform:translateX(-50%);
+      width:6px;height:20px;
+      border-radius:0 0 3px 3px;
+      background:linear-gradient(to bottom,#c0c4cc,#a0a4ac);
+    }
+    .ipad-pencil::after{
+      content:'';
+      position:absolute;
+      top:16px;left:0;right:0;
+      height:1px;
+      background:rgba(0,0,0,0.12);
+    }
+
+    /* Screen */
     .ipad-screen{
       width:100%;height:100%;
-      border-radius:24px;
+      border-radius:28px;
       background:#000;
       overflow:hidden;
       position:relative;
     }
-    /* Screen shine */
-    .ipad-screen::before{
-      content:'';
+
+    /* Screen glare */
+    .ipad-glare{
       position:absolute;
-      top:-60%;left:-40%;
-      width:120%;height:120%;
-      background:linear-gradient(135deg,rgba(255,255,255,0.04) 0%,transparent 60%);
+      top:0;left:0;right:0;
+      height:50%;
+      background:linear-gradient(160deg,
+        rgba(255,255,255,0.06) 0%,
+        rgba(255,255,255,0.02) 40%,
+        transparent 100%
+      );
+      border-radius:28px 28px 0 0;
       pointer-events:none;
       z-index:10;
-      border-radius:24px;
     }
-    /* Dashboard UI inside iPad */
+
+    /* Dashboard UI */
     .ipad-ui{
       width:100%;height:100%;
-      padding:24px 20px;
-      background:linear-gradient(160deg,#080c14 0%,#050810 100%);
-      display:flex;flex-direction:column;gap:14px;
+      padding:20px 18px 18px;
+      background:linear-gradient(160deg,#090d16 0%,#06090f 100%);
+      display:flex;flex-direction:column;gap:11px;
       font-family:'Inter',sans-serif;
+      overflow:hidden;
     }
-    .ipad-topbar{
+    .ipad-statusbar{
       display:flex;align-items:center;justify-content:space-between;
-      margin-bottom:4px;
+      padding-bottom:4px;
     }
-    .ipad-topbar-logo{
-      font-size:0.78rem;font-weight:700;color:#fff;letter-spacing:-0.02em;
-    }
-    .ipad-topbar-time{
-      font-size:0.68rem;color:rgba(255,255,255,0.3);letter-spacing:0.04em;
-    }
-    .ipad-greeting{
-      font-size:0.9rem;font-weight:600;color:#fff;margin-bottom:2px;
-    }
-    .ipad-subline{font-size:0.68rem;color:rgba(255,255,255,0.35);}
+    .ipad-time-big{font-size:0.82rem;font-weight:600;color:#fff;letter-spacing:-0.01em;}
+    .ipad-status-icons{display:flex;gap:5px;align-items:center;}
+    .ipad-status-icons span{font-size:0.6rem;color:rgba(255,255,255,0.5);}
 
-    .ipad-kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+    .ipad-greeting{font-size:0.88rem;font-weight:600;color:#fff;margin-bottom:1px;}
+    .ipad-subline{font-size:0.63rem;color:rgba(255,255,255,0.35);}
+
+    .ipad-kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
     .ipad-kpi{
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.07);
-      border-radius:12px;padding:12px 10px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:14px;padding:11px 10px;
     }
-    .ipad-kpi-label{font-size:0.6rem;color:rgba(255,255,255,0.35);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;}
-    .ipad-kpi-val{font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:-0.02em;line-height:1;}
-    .ipad-kpi-delta{font-size:0.6rem;color:#34d399;margin-top:4px;}
+    .ipad-kpi-label{font-size:0.55rem;color:rgba(255,255,255,0.35);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:5px;}
+    .ipad-kpi-val{font-size:1.05rem;font-weight:700;color:#fff;letter-spacing:-0.02em;line-height:1;}
+    .ipad-kpi-delta{font-size:0.55rem;color:#34d399;margin-top:4px;font-weight:600;}
     .ipad-kpi-delta.red{color:#f87171;}
 
     .ipad-chart-box{
       background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.06);
-      border-radius:14px;padding:14px;flex:1;
+      border:1px solid rgba(255,255,255,0.07);
+      border-radius:14px;padding:13px;flex:1;min-height:0;
     }
     .ipad-chart-header{
-      display:flex;align-items:center;justify-content:space-between;
-      margin-bottom:12px;
+      display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;
     }
-    .ipad-chart-title{font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.7);}
+    .ipad-chart-title{font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.65);}
     .ipad-chart-badge{
-      font-size:0.58rem;padding:2px 8px;border-radius:100px;
-      background:rgba(41,151,255,0.2);color:#2997ff;font-weight:600;
+      font-size:0.55rem;padding:2px 7px;border-radius:100px;
+      background:rgba(52,211,153,0.2);color:#34d399;font-weight:700;
+      display:flex;align-items:center;gap:4px;
     }
+    .ipad-chart-badge::before{
+      content:'';width:5px;height:5px;border-radius:50%;
+      background:#34d399;animation:livePulse 1.5s ease-in-out infinite;
+    }
+    @keyframes livePulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
     .ipad-chart{
-      width:100%;height:80px;
-      display:flex;align-items:flex-end;gap:5px;
+      width:100%;height:70px;
+      display:flex;align-items:flex-end;gap:4px;
     }
     .ipad-bar{
-      flex:1;border-radius:4px 4px 0 0;
-      background:rgba(41,151,255,0.2);
+      flex:1;border-radius:3px 3px 0 0;
+      background:rgba(41,151,255,0.15);
       position:relative;overflow:hidden;
-      animation:barGrow 1.5s ease forwards;
+      animation:barGrow 1.2s ease forwards;
       transform-origin:bottom;
     }
     .ipad-bar::after{
       content:'';position:absolute;inset:0;
-      background:linear-gradient(to top,rgba(41,151,255,0.8),rgba(167,139,250,0.4));
-      border-radius:4px 4px 0 0;
+      background:linear-gradient(to top,rgba(41,151,255,0.9),rgba(167,139,250,0.5));
+      border-radius:3px 3px 0 0;
     }
     @keyframes barGrow{from{transform:scaleY(0);}to{transform:scaleY(1);}}
 
-    .ipad-line-box{
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.06);
-      border-radius:14px;padding:14px;
-    }
-    .ipad-line-header{
-      display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;
-    }
-    .ipad-line-title{font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.7);}
-    .ipad-sparkline{width:100%;height:40px;}
-
     .ipad-activity{
       background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.06);
-      border-radius:14px;padding:12px 14px;
+      border:1px solid rgba(255,255,255,0.07);
+      border-radius:14px;padding:11px 13px;
     }
-    .ipad-activity-title{font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px;}
+    .ipad-activity-title{
+      font-size:0.58rem;font-weight:600;
+      color:rgba(255,255,255,0.35);
+      letter-spacing:0.07em;text-transform:uppercase;margin-bottom:9px;
+    }
     .ipad-activity-row{
-      display:flex;align-items:center;gap:10px;padding:6px 0;
+      display:flex;align-items:center;gap:9px;padding:5px 0;
       border-bottom:1px solid rgba(255,255,255,0.04);
     }
-    .ipad-activity-row:last-child{border-bottom:none;}
-    .ipad-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-    .dot-blue{background:#2997ff;}
-    .dot-green{background:#34d399;}
-    .dot-purple{background:#a78bfa;}
-    .ipad-activity-text{font-size:0.65rem;color:rgba(255,255,255,0.5);flex:1;}
-    .ipad-activity-val{font-size:0.65rem;font-weight:600;color:#fff;}
+    .ipad-activity-row:last-child{border-bottom:none;padding-bottom:0;}
+    .ipad-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+    .dot-blue{background:#2997ff;box-shadow:0 0 6px rgba(41,151,255,0.6);}
+    .dot-green{background:#34d399;box-shadow:0 0 6px rgba(52,211,153,0.6);}
+    .dot-purple{background:#a78bfa;box-shadow:0 0 6px rgba(167,139,250,0.6);}
+    .ipad-activity-text{font-size:0.62rem;color:rgba(255,255,255,0.5);flex:1;}
+    .ipad-activity-val{font-size:0.6rem;font-weight:600;color:rgba(255,255,255,0.7);}
 
-    /* Screen glow reflection on floor */
+    /* Floor glow */
     .ipad-glow{
       position:absolute;
-      bottom:-80px;left:50%;transform:translateX(-50%);
-      width:400px;height:80px;
-      background:radial-gradient(ellipse,rgba(41,151,255,0.2),transparent 70%);
-      filter:blur(20px);
+      bottom:-60px;left:50%;transform:translateX(-50%);
+      width:380px;height:60px;
+      background:radial-gradient(ellipse,rgba(41,151,255,0.25),transparent 70%);
+      filter:blur(24px);
       pointer-events:none;
     }
 
@@ -914,14 +1025,24 @@
   </div>
   <div class="ipad-scene">
     <div class="ipad-wrapper" id="ipad-wrapper">
-      <div class="ipad-frame">
-        <div class="ipad-camera"></div>
-        <div class="ipad-btn"></div>
+      <div class="ipad-shell">
+        <div class="ipad-front-cam"></div>
+        <div class="ipad-power"></div>
+        <div class="ipad-vol">
+          <div class="ipad-vol-btn"></div>
+          <div class="ipad-vol-btn"></div>
+        </div>
+        <div class="ipad-pencil"></div>
         <div class="ipad-screen">
+          <div class="ipad-glare"></div>
           <div class="ipad-ui">
-            <div class="ipad-topbar">
-              <span class="ipad-topbar-logo">KIRA</span>
-              <span class="ipad-topbar-time">09:41</span>
+            <div class="ipad-statusbar">
+              <span class="ipad-time-big">09:41</span>
+              <div class="ipad-status-icons">
+                <span>&#x25A0;&#x25A0;&#x25A0;</span>
+                <span>WiFi</span>
+                <span>&#x1F50B;</span>
+              </div>
             </div>
             <div>
               <div class="ipad-greeting">Guten Morgen, Thomas.</div>
