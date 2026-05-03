@@ -4,6 +4,11 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>JARVIS</title>
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#000000"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="apple-mobile-web-app-title" content="JARVIS"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -297,6 +302,80 @@
       pointer-events:none;
     }
 
+    /* Setup overlay */
+    .setup-overlay{
+      position:fixed;inset:0;
+      background:rgba(0,0,0,0.95);
+      backdrop-filter:blur(20px);
+      z-index:1000;
+      display:flex;align-items:center;justify-content:center;
+      padding:24px;
+    }
+    .setup-box{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:24px;
+      padding:40px 36px;
+      max-width:440px;width:100%;
+      text-align:center;
+    }
+    .setup-icon{
+      width:64px;height:64px;
+      background:radial-gradient(circle at 35% 35%,rgba(41,151,255,0.8),rgba(0,40,100,0.9));
+      border-radius:50%;
+      margin:0 auto 24px;
+      box-shadow:0 0 40px rgba(41,151,255,0.3);
+    }
+    .setup-box h2{
+      font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;
+      margin-bottom:8px;
+    }
+    .setup-box p{
+      font-size:0.82rem;color:rgba(255,255,255,0.4);
+      line-height:1.6;margin-bottom:28px;
+    }
+    .setup-box p a{color:var(--blue);text-decoration:none;}
+    .setup-input{
+      width:100%;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:12px;
+      padding:14px 16px;
+      color:#fff;font-size:0.88rem;
+      font-family:'Inter',sans-serif;
+      outline:none;
+      margin-bottom:12px;
+      transition:border-color 0.2s;
+    }
+    .setup-input:focus{border-color:rgba(41,151,255,0.5);}
+    .setup-input::placeholder{color:rgba(255,255,255,0.2);}
+    .setup-submit{
+      width:100%;
+      padding:14px;
+      background:var(--blue2);
+      border:none;border-radius:12px;
+      color:#fff;font-size:0.9rem;font-weight:600;
+      cursor:pointer;
+      transition:background 0.2s;
+    }
+    .setup-submit:hover{background:var(--blue);}
+    .setup-note{
+      margin-top:16px;
+      font-size:0.72rem;color:rgba(255,255,255,0.2);
+    }
+    .settings-btn{
+      position:fixed;bottom:24px;right:24px;
+      width:36px;height:36px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;font-size:0.85rem;
+      z-index:100;
+      transition:background 0.2s;
+    }
+    .settings-btn:hover{background:rgba(255,255,255,0.1);}
+
     /* Waveform */
     .waveform{
       display:flex;align-items:center;gap:3px;height:24px;
@@ -386,10 +465,30 @@
 
 </div>
 
+<!-- Setup Overlay -->
+<div class="setup-overlay" id="setupOverlay" style="display:none">
+  <div class="setup-box">
+    <div class="setup-icon"></div>
+    <h2>JARVIS einrichten</h2>
+    <p>
+      Trag einmal deinen <strong>Claude API-Key</strong> ein.<br/>
+      Er wird lokal gespeichert — nur auf deinem Gerät.<br/><br/>
+      Key erstellen: <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a><br/>
+      → Login → "API Keys" → "Create Key"
+    </p>
+    <input class="setup-input" id="apiKeyInput" type="password" placeholder="sk-ant-api03-..."/>
+    <button class="setup-submit" onclick="saveApiKey()">JARVIS aktivieren</button>
+    <p class="setup-note">Der Key verlässt nie deinen Browser. Keine Weitergabe.</p>
+  </div>
+</div>
+
+<!-- Settings button -->
+<div class="settings-btn" onclick="showSetup()" title="API-Key ändern">⚙️</div>
+
 <div class="wake-hint">Sage "Hey JARVIS" zum Aktivieren • Mikrofon-Berechtigung erforderlich</div>
 
 <script>
-  const CLAUDE_API_KEY = 'DEIN_API_KEY_HIER'; // Claude API Key einfügen
+  let CLAUDE_API_KEY = localStorage.getItem('jarvis_api_key') || '';
 
   const JARVIS_SYSTEM = `Du bist JARVIS (Just A Rather Very Intelligent System) — der persönliche KI-Assistent deines Nutzers, inspiriert von Tony Starks JARVIS.
 
@@ -520,10 +619,10 @@ Halte Antworten unter 200 Wörtern ausser explizit nach mehr gefragt wird.`;
 
     const lastMsg = chat.lastElementChild.querySelector('.msg-text');
 
-    // Check if API key is set
-    if (CLAUDE_API_KEY === 'DEIN_API_KEY_HIER') {
-      lastMsg.innerHTML = '⚠️ API-Key fehlt noch. Öffne diese Datei in einem Texteditor und füge deinen Claude API-Key bei <code>CLAUDE_API_KEY</code> ein. Den Key findest du auf <strong>console.anthropic.com</strong>.';
-      setStatus('idle', 'API-Key nicht gesetzt');
+    if (!CLAUDE_API_KEY) {
+      lastMsg.innerHTML = '';
+      showSetup();
+      setStatus('idle', 'API-Key einrichten');
       return;
     }
 
@@ -574,13 +673,40 @@ Halte Antworten unter 200 Wörtern ausser explizit nach mehr gefragt wird.`;
     speechSynthesis.speak(utterance);
   }
 
+  // Setup functions
+  function showSetup() {
+    document.getElementById('setupOverlay').style.display = 'flex';
+    setTimeout(() => document.getElementById('apiKeyInput').focus(), 100);
+  }
+
+  function saveApiKey() {
+    const key = document.getElementById('apiKeyInput').value.trim();
+    if (!key || !key.startsWith('sk-ant')) {
+      document.getElementById('apiKeyInput').style.borderColor = 'rgba(255,100,100,0.5)';
+      return;
+    }
+    CLAUDE_API_KEY = key;
+    localStorage.setItem('jarvis_api_key', key);
+    document.getElementById('setupOverlay').style.display = 'none';
+    addMessage('jarvis', 'API-Key gespeichert. JARVIS ist jetzt aktiv und bereit. Sag "Hey JARVIS" oder klick den Orb.');
+    startWakeWordListener();
+  }
+
   // Init
   window.addEventListener('load', () => {
-    speechSynthesis.getVoices(); // preload
-    startWakeWordListener();
+    speechSynthesis.getVoices();
+    if (!CLAUDE_API_KEY) {
+      showSetup();
+    } else {
+      startWakeWordListener();
+    }
   });
 
-  // Voice preload after interaction
+  // Service Worker für PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
+
   document.addEventListener('click', () => { speechSynthesis.getVoices(); }, { once: true });
 </script>
 </body>
